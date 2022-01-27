@@ -6,6 +6,8 @@ Discord bot that authenticates UTK students via email verification
 
 # Development
 ## Setup
+Ignore from here on out if you don't plan on messing with the src at all.
+
 [Other than normal Discord-bot-integration](https://discord.com/api/oauth2/authorize?client_id=936087804033781801&permissions=8&scope=bot), you must have your own `members.json` file and have your environment variables set accordingly in an `.env` file.
 The following variables are customizable:
 ```python3
