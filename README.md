@@ -1,1 +1,1 @@
-Discord bot that authenticates UTK students
+# Discord bot that authenticates UTK students
