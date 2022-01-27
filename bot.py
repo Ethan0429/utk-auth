@@ -107,7 +107,7 @@ async def on_message(message):
     if str(message.content) == await get_auth_pair(message.author.id):
         await message.channel.send(f"{message.author.mention} Authentication succesful!")
         await assign_role(message.author)
-        remove_member(message.author)
+        remove_member(message.author.id)
     return
 
 bot.run(TOKEN)
