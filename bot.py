@@ -31,10 +31,23 @@ async def send_auth_email(user, passkey):
     s.quit()
 
 # updates member list for auth tracking
-def update_members(data):
-    with open('members.json', 'w') as fp:
-        json.dump(data, fp, indent=2)
+def update_members(auth_pair):
+    data = {}
+    if os.path.getsize('members.json') != 0:
+        with open('members.json') as f:
+            data = json.load(f)
+    with open('members.json', 'w') as f:
+        data[auth_pair[0]] = auth_pair[1]
+        json.dump(data, f, indent=2)
 
+def remove_member(user):
+    data = {}
+    if os.path.getsize('members.json') != 0:
+        with open('members.json') as f:
+            data = json.load(f)
+    with open('file.json', 'w') as f:
+        data.pop(str(user), None)
+        json.dump(data, f, indent=2)
 
 # return passkey mapped to user ID from members.json
 async def get_auth_pair(user):
@@ -74,7 +87,7 @@ async def auth(ctx: commands.Context, *, netid=None):
         return
     
     passkey = ''.join([str(number) for number in np.random.randint(10, size=6)]) # generate passkey
-    auth_pair = {ctx.message.author.id: passkey}                                 # serialize ID & key
+    auth_pair = (ctx.message.author.id, passkey)                      # serialize ID & key
     update_members(auth_pair)
     await send_auth_email(netid, passkey)                                        # send auth email
     response = f"{ctx.message.author.mention} Check your UTK email and enter the code received into the chat."
@@ -94,6 +107,7 @@ async def on_message(message):
     if str(message.content) == await get_auth_pair(message.author.id):
         await message.channel.send(f"{message.author.mention} Authentication succesful!")
         await assign_role(message.author)
+        remove_member(message.author)
     return
 
 bot.run(TOKEN)
