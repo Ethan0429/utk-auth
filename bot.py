@@ -45,7 +45,7 @@ def remove_member(user):
     if os.path.getsize('members.json') != 0:
         with open('members.json') as f:
             data = json.load(f)
-    with open('file.json', 'w') as f:
+    with open('members.json', 'w') as f:
         data.pop(str(user), None)
         json.dump(data, f, indent=2)
 
