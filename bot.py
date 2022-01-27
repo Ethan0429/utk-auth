@@ -2,6 +2,7 @@
 import os
 import json
 from discord.ext import commands
+from discord.utils import get
 from dotenv import load_dotenv
 import numpy as np
 import smtplib
@@ -52,6 +53,12 @@ def is_auth(user):
         return True
     return False
 
+async def assign_role(user):
+    if is_auth(user):
+        return
+    role = get(user.guild.roles, name=auth_role)
+    await user.add_roles(role)
+
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
 async def auth(ctx: commands.Context, *, netid=None):
@@ -82,6 +89,7 @@ async def on_message(message):
     # if passkey matches members.json, assign Student role and confirm authentication
     if str(message.content) == await get_auth_pair(message.author.id):
         await message.channel.send(f"{message.author.mention} Authentication succesful!")
+        await assign_role(message.author)
     return
 
 bot.run(TOKEN)
