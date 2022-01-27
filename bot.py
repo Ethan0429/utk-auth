@@ -59,6 +59,10 @@ async def assign_role(user):
     role = get(user.guild.roles, name=auth_role)
     await user.add_roles(role)
 
+@bot.event
+async def on_ready():
+    print(f'{bot.user} is online!')
+
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
 async def auth(ctx: commands.Context, *, netid=None):
