@@ -63,6 +63,7 @@ async def get_auth_pair(user):
 # check is user is already authenticated (has Student role)
 def is_auth(user):
     if auth_role in user.roles:
+        print(f'{user} is already authenticated!')
         return True
     return False
 
@@ -79,35 +80,37 @@ async def on_ready():
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
 async def auth(ctx: commands.Context, *, netid=None):
-    if is_auth(ctx.author):
+    member = ctx.message.author
+    if is_auth(member):
         return
     if netid is None:
-        response = f"{ctx.message.author.mention} Please enter a valid UTK NetID!"
+        response = f"{member.mention} Please enter a valid UTK NetID!"
         await ctx.send(response)
         return
     
     passkey = ''.join([str(number) for number in np.random.randint(10, size=6)]) # generate passkey
-    auth_pair = (ctx.message.author.id, passkey)                      # serialize ID & key
+    auth_pair = (member.id, passkey)                                             # serialize ID & key
     update_members(auth_pair)
     await send_auth_email(netid, passkey)                                        # send auth email
-    response = f"{ctx.message.author.mention} Check your UTK email and enter the code received into the chat."
+    response = f"{member.mention} Check your UTK email and enter the code received into the chat."
     await ctx.send(response)
 
 
 # read passkey for valid match
 @bot.event
 async def on_message(message):
-    if (message.author.id == bot.user.id) or (str(message.channel) != auth_channel):
+    member = message.author
+    if (member.id == bot.user.id) or (str(message.channel) != auth_channel):
         return
     await bot.process_commands(message)
-    if is_auth(message.author):
+    if is_auth(member):
         return
 
     # if passkey matches members.json, assign Student role and confirm authentication
-    if str(message.content) == await get_auth_pair(message.author.id):
-        await message.channel.send(f"{message.author.mention} Authentication succesful!")
-        await assign_role(message.author)
-        remove_member(message.author.id)
+    if str(message.content) == await get_auth_pair(member.id):
+        await message.channel.send(f"{member.mention} Authentication succesful!")
+        await assign_role(member)
+        remove_member(member.id)
     return
 
 bot.run(TOKEN)
