@@ -13,7 +13,7 @@ bot = commands.Bot(command_prefix='!')
 
 # customizable
 auth_channel = 'auth'
-auth_role    = 'Student'
+auth_role    = 'COSC 102'
 email_tag    = '@vols.utk.edu'
 
 # retrieve bot email credentials used for user authentication
@@ -62,7 +62,8 @@ async def get_auth_pair(user):
 
 # check is user is already authenticated (has Student role)
 def is_auth(user):
-    if auth_role in user.roles:
+    roles = [str(role) for role in user.roles]
+    if auth_role in roles:
         print(f'{user} is already authenticated!')
         return True
     return False
