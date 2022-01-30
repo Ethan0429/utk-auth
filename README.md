@@ -38,4 +38,3 @@ async def get_credentials():
 - discord.py
 - python-dotenv
 - numpy (necessary for the implementation but can easily be replaced with stock Python)
-
