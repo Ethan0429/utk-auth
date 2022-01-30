@@ -16,9 +16,8 @@ async def assign_role(user):
     await user.add_roles(role)
 
 @bot.event
-async def on_ready():
-    global users
-    users = canvas_utils.get_student_names()
+async def on_ready(): 
+    bot_vars.users = canvas_utils.get_student_names()
     print(f'{bot.user} is online!') 
 
 # user authentication via Discord command !auth [netid]
@@ -35,9 +34,9 @@ async def auth(ctx: commands.Context, *, netid=None):
         await ctx.send(f'{member.mention} there already exists a passcode for this NetID. Type `!reset` to reset your passcode.')
         return
 
-    auth_id = bot_utils.generate_auth_id(str_member_id, netid)
+    auth_id = bot_utils.generate_auth_id(str_member_id, str(netid))
     bot_utils.update_members(auth_id)
-    await utk_mail.send_auth_email(auth_id, auth_id[1]) # send passkey email
+    await utk_mail.send_auth_email(auth_id) # send passkey email
     response = f'{member.mention} Check your UTK email and enter the code received into the chat.'
     await ctx.send(response)
 
@@ -56,7 +55,7 @@ async def verify(ctx: commands.Context, *, passkey: str):
         await ctx.message.channel.send(f'{member.mention} Authentication succesful!')
         bot_utils.remove_member(str_member_id)
         await assign_role(member)
-        await member.edit(nick=users[auth_id['netid']])
+        await member.edit(nick=bot_vars.users[auth_id['netid']])
     return
 
 # resets passkey if it already exists in members.json

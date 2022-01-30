@@ -1,5 +1,4 @@
 import bot_vars
-from canvasapi import Canvas
 
 def catch_invalid_login_id(user):
     try:

@@ -1,7 +1,7 @@
 import bot_vars
 import json
 import numpy as np
-
+from bot_vars import AuthID
 
 # check if a key already exists
 def key_exists(user):
@@ -19,10 +19,10 @@ def key_exists(user):
 # updates member list for auth tracking
 def update_members(auth_id):
     data = { 
-        auth_id[0]: 
+        auth_id.member_id: 
         { 
-            'passkey': auth_id[1],
-            'netid': auth_id[2]
+            'passkey': auth_id.passkey,
+            'netid': auth_id.netid
         }
     }
     try: # if members.json is not empty...
@@ -33,9 +33,9 @@ def update_members(auth_id):
         print(e)
         pass
     with open('members.json', 'w') as f:
-        data[auth_id[0]] = { 
-            'passkey': auth_id[1],
-            'netid': auth_id[2] 
+        data[auth_id.member_id] = { 
+            'passkey': auth_id.passkey,
+            'netid': auth_id.netid 
         }
         
         print(data)
@@ -75,5 +75,5 @@ def is_auth(user):
 
 def generate_auth_id(member_id, netid):
     passkey = ''.join([str(number) for number in np.random.randint(10, size=6)]) # generate passkey
-    auth_id = (member_id, passkey, netid)
+    auth_id = AuthID(member_id, passkey, netid)
     return auth_id
