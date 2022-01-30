@@ -1,3 +1,4 @@
 .env
 members.json
-utk-auth-aws.pem.connect
+utk-auth-aws.pem
+.connect
