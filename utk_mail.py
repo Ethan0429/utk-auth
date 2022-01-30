@@ -12,6 +12,6 @@ async def send_auth_email(user):
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
     s.login(BOT_EMAIL, BOT_PASS)
-    msg = f'Hello {bot_vars.users[user.netid]},\n\nCopy and paste the following code into the #auth channel: !verify {user.passkey}\n\n-Sincerely, UTK Auth Bot'
+    msg = f'Hello {bot_vars.users[user.netid]},\n\nCopy and paste the following line into the #auth channel:\n!verify {user.passkey}\n\n-Sincerely, UTK Auth Bot'
     s.sendmail(BOT_EMAIL, user.netid+bot_vars.email_tag, msg)
     s.quit()
