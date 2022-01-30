@@ -1,4 +1,4 @@
 .env
+.connect
 members.json
 utk-auth-aws.pem
-.connect
