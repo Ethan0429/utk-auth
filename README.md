@@ -4,6 +4,8 @@ Discord bot that authenticates UTK students via email verification & integrates 
 # Bot Link
 [Click here to add this bot to your server!](https://discord.com/api/oauth2/authorize?client_id=936087804033781801&permissions=8&scope=bot)
 
+You must add the bot to your server and give it administrator permissions, as well as adjusted it in the role hierarchy list to be at least above the role you will be authorizing.
+
 # Usage
 The bot has 3 commands, all of which are only effective if the user does not have an auth role already. _Note: none of these command arguments include brackets_
 - `!auth [NetID]`: takes a single argument which is your UTK NetID.
@@ -43,5 +45,5 @@ async def get_credentials():
 - discord.py
 - python-dotenv (or tweak the code for native env variables)
 - numpy (necessary for the implementation but can easily be replaced with stock Python)
-- canvasapi
+- canvasapi (note that the features of Canvas API in this case will not be available to users whose API key is not of the proper privilege level to view login ids
 - smtplib (my personal choice of automated emailing)
