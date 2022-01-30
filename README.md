@@ -45,5 +45,5 @@ async def get_credentials():
 - discord.py
 - python-dotenv (or tweak the code for native env variables)
 - numpy (necessary for the implementation but can easily be replaced with stock Python)
-- canvasapi (note that the features of Canvas API in this case will not be available to users whose API key is not of the proper privilege level to view login ids
+- canvasapi _(note that the features of Canvas API in this case will not be available to users whose API key is not of the proper privilege level to view login ids)_
 - smtplib (my personal choice of automated emailing)
