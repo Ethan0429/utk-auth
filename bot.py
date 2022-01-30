@@ -16,7 +16,7 @@ API_URL = 'https://utk.instructure.com/'
 # Canvas API key
 API_KEY = os.getenv('CANVAS_KEY')
 canvas = Canvas(API_URL, API_KEY)
-CONST_COSC102_COURSE_ID = 139798
+CONST_COURSE_ID = 139798
 users = {}
 # customizable
 auth_channel = 'auth'
@@ -26,6 +26,7 @@ email_tag    = '@vols.utk.edu'
 async def get_credentials():
     return os.getenv('BOT_EMAIL_USER'), os.getenv('BOT_EMAIL_PASS')
 
+# predicate for catching invalid login/user ids during list comprehension
 def catch_invalid_login_id(user):
     try:
         return str(user.login_id)
@@ -38,10 +39,14 @@ def catch_invalid_login_name(user):
     except AttributeError:
         pass
 
+# maps NetID : Student Name
+# returns all students in a given class
+# your Canvas API key must belong to a user who has permission to access these records
 def get_student_names():
-    course = canvas.get_course(CONST_COSC102_COURSE_ID)
+    course = canvas.get_course(CONST_COURSE_ID)
     users = {catch_invalid_login_id(user): catch_invalid_login_name(user) for user in course.get_users()} 
     return users
+
 # send authentication email to unauthenticated users
 async def send_auth_email(user, passkey):
     BOT_EMAIL, BOT_PASS = await get_credentials()
@@ -135,7 +140,6 @@ async def on_ready():
     users = get_student_names()
     print(f'{bot.user} is online!')
     
-
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
 async def auth(ctx: commands.Context, *, netid=None):
@@ -151,9 +155,9 @@ async def auth(ctx: commands.Context, *, netid=None):
         return
     
     passkey = ''.join([str(number) for number in np.random.randint(10, size=6)]) # generate passkey
-    auth_id = (str_member_id, passkey, netid)                                             # serialize ID & key
+    auth_id = (str_member_id, passkey, netid) # serialize Discord/NetID & key
     update_members(auth_id)
-    #await send_auth_email(netid, passkey)                                        # send auth email
+    await send_auth_email(netid, passkey) # send auth email
     response = f'{member.mention} Check your UTK email and enter the code received into the chat.'
     await ctx.send(response)
 
