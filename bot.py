@@ -1,4 +1,4 @@
-#!/user/bin/python3
+#!/usr/bin/python3
 # bot.py
 from discord.ext import commands
 from discord.utils import get
