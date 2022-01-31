@@ -6,6 +6,7 @@ import canvas_utils
 import utk_mail
 import bot_utils
 import bot_vars
+import os.path
 
 bot = commands.Bot(command_prefix='!')
 
@@ -20,6 +21,17 @@ async def assign_role(user):
 
 @bot.event
 async def on_ready(): 
+    if os.path.exists('.env'):
+        pass
+    else:
+        with open('.env') as f:
+            f.writelines([
+                '# .env',
+                'DISCORD_TOKEN=',
+                'BOT_EMAIL_USER='
+                'BOT_EMAIL_PASS=',
+                'CANVAS_KEY='
+            ])
     open('members.json', 'w').close()
     bot_vars.users = canvas_utils.get_student_names()
     print(f'{bot.user} is online!') 
