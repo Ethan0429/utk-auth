@@ -1,3 +1,4 @@
+#!/user/bin/python3
 # bot.py
 from discord.ext import commands
 from discord.utils import get
@@ -19,6 +20,7 @@ async def assign_role(user):
 
 @bot.event
 async def on_ready(): 
+    open('members.json', 'w').close()
     bot_vars.users = canvas_utils.get_student_names()
     print(f'{bot.user} is online!') 
 
