@@ -74,7 +74,7 @@ async def reset(ctx: commands.Context):
     if bot_utils.is_auth(member):
         await ctx.send(f'{member.mention} you\'re already authorized!')
         return
-    if bot_utils.get_auth_id(str_member_id) == None:
+    if await bot_utils.get_auth_id(str_member_id) == None:
         await ctx.send(f'{member.mention} there is no code on file for your discord account!\nRun `!auth [netid]` (without brackets) command for starting the authentication process')
         return
     bot_utils.remove_member(str_member_id)
