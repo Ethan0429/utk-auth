@@ -55,6 +55,8 @@ def remove_member(user):
     with open('members.json', 'w') as f:
         data.pop(user, None)
         json.dump(data, f, indent=2)
+        print(f'{user} passkey removed from members.json!')
+
 
 # return passkey mapped to user ID from members.json
 async def get_auth_id(user):
@@ -64,11 +66,12 @@ async def get_auth_id(user):
     f.close()
     print(data)
     if user in data:
-        try:
-            print('passkey found!')
-            return data[user]
-        except KeyError:
-            return None
+        print(f'{user} passkey found!')
+        return data[user]
+    else:
+        print(f'no passkey for {user} in members.json!')
+    
+
 
 # check is user is already authenticated (has Student role)
 def is_auth(user):
