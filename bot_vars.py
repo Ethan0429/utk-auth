@@ -8,11 +8,11 @@ if os.path.exists('.env'):
 else:
     with open('.env', 'w') as f:
         f.writelines([
-            '# .env',
-            'DISCORD_TOKEN=',
-            'BOT_EMAIL_USER='
-            'BOT_EMAIL_PASS=',
-            'CANVAS_KEY='
+            '# .env\n',
+            'DISCORD_TOKEN=\n',
+            'BOT_EMAIL_USER=\n'
+            'BOT_EMAIL_PASS=\n',
+            'CANVAS_KEY=\n'
         ])
     print('.env file generated! Exiting bot script.\nFill the appropriate fields in the .env file before running the script again!')
     sys.exit()
