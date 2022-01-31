@@ -64,9 +64,11 @@ async def get_auth_id(user):
     f.close()
     print(data)
     if user in data:
-        print('passkey found!')
-        return data[user]
-    return None
+        try:
+            print('passkey found!')
+            return data[user]
+        except KeyError:
+            return None
 
 # check is user is already authenticated (has Student role)
 def is_auth(user):
