@@ -22,7 +22,7 @@ If you've entered the command correctly and with a valid NetID, then you will re
 ## Setup
 Ignore from here on out if you don't plan on messing with the src at all.
 
-[Other than normal Discord-bot-integration](https://github.com/Ethan0429/utk-auth#bot-link), you must have your own `members.json` file (though this is created upon script run) and have your environment variables set accordingly in an `.env` file. All environment variables are denoted by ALL_CAPS variables in the code block below.
+[Other than normal Discord-bot-integration](https://github.com/Ethan0429/utk-auth#bot-link), you must have your own `members.json` file (though this is created upon script run) and have your environment variables set accordingly in the generated `.env` file. All environment variables are denoted by ALL_CAPS variables in the code block below.
 The following variables are subject to the individual's preferences:
 ```python3
 TOKEN           = os.getenv('DISCORD_TOKEN')        # Discord app key for interfacing with their API
