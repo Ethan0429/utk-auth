@@ -6,7 +6,7 @@ from collections import namedtuple
 if os.path.exists('.env'):
     pass
 else:
-    with open('.env') as f:
+    with open('.env', 'w') as f:
         f.writelines([
             '# .env',
             'DISCORD_TOKEN=',
