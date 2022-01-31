@@ -2,13 +2,17 @@ import bot_vars
 
 def catch_invalid_login_id(user):
     try:
-        return str(user.login_id)
+        str(user.login_id)
+        
     except AttributeError:
         pass
 
 def catch_invalid_login_name(user):
     try:
-        return str(user.name)
+        username = str(user.name)
+        first_last = username.split()
+        username = first_last[0]+first_last[-1]
+        return username
     except AttributeError:
         pass
 
