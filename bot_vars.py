@@ -1,7 +1,21 @@
-import os
+import os, sys
 from canvasapi import Canvas
 from dotenv import load_dotenv
 from collections import namedtuple
+
+if os.path.exists('.env'):
+    pass
+else:
+    with open('.env') as f:
+        f.writelines([
+            '# .env',
+            'DISCORD_TOKEN=',
+            'BOT_EMAIL_USER='
+            'BOT_EMAIL_PASS=',
+            'CANVAS_KEY='
+        ])
+    print('.env file generated! Exiting bot script.\nFill the appropriate fields in the .env file before running the script again!')
+    sys.exit()
 
 load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
