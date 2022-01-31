@@ -10,7 +10,9 @@ bot = commands.Bot(command_prefix='!')
 
 # add auth role to user
 async def assign_role(user):
+    print(f'assigning auth role to {str(user.name)}...')
     if bot_utils.is_auth(user):
+        print(f'{str(user.name)} already has auth role!')
         return
     role = get(user.guild.roles, name=bot_vars.auth_role)
     await user.add_roles(role)
@@ -23,14 +25,17 @@ async def on_ready():
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
 async def auth(ctx: commands.Context, *, netid=None):
+    print('\nauthenticating...')
     member = ctx.message.author
     str_member_id = str(member.id)
     if bot_utils.is_auth(member):
         return
     if netid is None:
+        print(f'netid invalid!')
         await ctx.send(f'{member.mention} Please enter a valid UTK NetID!')
         return
     if bot_utils.key_exists(str_member_id):
+        print(f'{netid} already has an authid!')
         await ctx.send(f'{member.mention} there already exists a passcode for this NetID. Type `!reset` to reset your passcode.')
         return
 
@@ -43,6 +48,7 @@ async def auth(ctx: commands.Context, *, netid=None):
 # read passkey for valid match
 @bot.command(name='verify')
 async def verify(ctx: commands.Context, *, passkey: str):
+    print('\nverifying...')
     member = ctx.message.author
     str_member_id = str(member.id)
     if bot_utils.is_auth(member):
@@ -63,6 +69,8 @@ async def verify(ctx: commands.Context, *, passkey: str):
 async def reset(ctx: commands.Context):
     member = ctx.message.author
     str_member_id = str(member.id)
+    print(f'\nresetting {str_member_id} authid...')
+
     if bot_utils.is_auth(member):
         await ctx.send(f'{member.mention} you\'re already authorized!')
         return
