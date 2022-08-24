@@ -21,6 +21,9 @@ from collections import namedtuple
 
 # load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
+
+print(f"Discord bot token: {TOKEN}\n")
+
 auth_channel = 'auth'
 auth_role    = 'COSC 102'
 email_tag    = '@vols.utk.edu'
