@@ -3,21 +3,23 @@ from canvasapi import Canvas
 from dotenv import load_dotenv
 from collections import namedtuple
 
-if os.path.exists('.env'):
-    pass
-else:
-    with open('.env', 'w') as f:
-        f.writelines([
-            '# .env\n',
-            'DISCORD_TOKEN=\n',
-            'BOT_EMAIL_USER=\n'
-            'BOT_EMAIL_PASS=\n',
-            'CANVAS_KEY=\n'
-        ])
-    print('.env file generated! Exiting bot script.\nFill the appropriate fields in the .env file before running the script again!')
-    sys.exit()
+# if using dotenv, un-comment:
 
-load_dotenv()
+# if os.path.exists('.env'):
+#     pass
+# else:
+#     with open('.env', 'w') as f:
+#         f.writelines([
+#             '# .env\n',
+#             'DISCORD_TOKEN=\n',
+#             'BOT_EMAIL_USER=\n'
+#             'BOT_EMAIL_PASS=\n',
+#             'CANVAS_KEY=\n'
+#         ])
+#     print('.env file generated! Exiting bot script.\nFill the appropriate fields in the .env file before running the script again!')
+#     sys.exit()
+
+# load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 auth_channel = 'auth'
 auth_role    = 'COSC 102'
