@@ -22,9 +22,6 @@ async def assign_role(user):
 @bot.event
 async def on_ready(): 
     open('members.json', 'w').close()
-    dir_list = os.listdir('.')
-    print("Current dir contents:")
-    print(dir_list)
     bot_vars.users = canvas_utils.get_student_names()
     print(f'{bot.user} is online!') 
 
@@ -48,7 +45,7 @@ async def auth(ctx: commands.Context, *, netid=None):
     auth_id = bot_utils.generate_auth_id(str_member_id, str(netid))
     bot_utils.update_members(auth_id)
     await utk_mail.send_auth_email(auth_id) # send passkey email
-    response = f'{member.mention} Check your UTK email and enter the code received into the chat.'
+    response = f'{member.mention} Check your UTK email **(SPAM FOLDER)** and enter the code received into the chat.'
     await ctx.send(response)
 
 # read passkey for valid match

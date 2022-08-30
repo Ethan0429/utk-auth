@@ -9,7 +9,6 @@ async def get_credentials():
 # send authentication email to unauthenticated users
 async def send_auth_email(user):
     BOT_EMAIL, BOT_PASS = await get_credentials()
-    print(f'{BOT_EMAIL}, {BOT_PASS}')
     print('init SMTP...')
     s = smtplib.SMTP('smtp.gmail.com', 587)
     s.starttls()
