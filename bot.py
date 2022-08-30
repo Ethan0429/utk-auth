@@ -22,7 +22,7 @@ async def assign_role(user):
 @bot.event
 async def on_ready(): 
     open('members.json', 'w').close()
-    dir_list = os.listdir(path)
+    dir_list = os.listdir('.')
     print("Current dir contents:")
     print(dir_list)
     bot_vars.users = canvas_utils.get_student_names()
