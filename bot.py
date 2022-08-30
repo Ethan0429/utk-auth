@@ -6,6 +6,7 @@ import canvas_utils
 import utk_mail
 import bot_utils
 import bot_vars
+import os
 
 bot = commands.Bot(command_prefix='!')
 
