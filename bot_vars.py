@@ -21,9 +21,6 @@ from collections import namedtuple
 
 # load_dotenv()
 
-with open('members.json', 'w') as f:
-    pass
-
 TOKEN = os.getenv('DISCORD_TOKEN')
 
 print(f"Discord bot token: {TOKEN}\n")

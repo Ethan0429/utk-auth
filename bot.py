@@ -21,6 +21,9 @@ async def assign_role(user):
 @bot.event
 async def on_ready(): 
     open('members.json', 'w').close()
+    dir_list = os.listdir(path)
+    print("Current dir contents:")
+    print(dir_list)
     bot_vars.users = canvas_utils.get_student_names()
     print(f'{bot.user} is online!') 
 
