@@ -1,6 +1,5 @@
-import os, sys
+import os
 from canvasapi import Canvas
-from dotenv import load_dotenv
 from collections import namedtuple
 
 # if using dotenv, un-comment:

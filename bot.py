@@ -5,7 +5,6 @@ import utk_mail
 import bot_utils
 import bot_vars
 import discord
-import os
 
 intents = discord.Intents.default()
 intents.members = True
