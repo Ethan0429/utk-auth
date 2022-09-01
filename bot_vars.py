@@ -26,7 +26,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 print(f"Discord bot token: {TOKEN}\n")
 
 auth_channel = 'auth'
-auth_role    = 'COSC 102'
+auth_role    = 'COSC 101'
 email_tag    = '@vols.utk.edu'
 
 # Canvas API URL
@@ -34,7 +34,7 @@ API_URL = 'https://utk.instructure.com/'
 # Canvas API key
 API_KEY = os.getenv('CANVAS_KEY')
 canvas = Canvas(API_URL, API_KEY)
-CONST_COSC102_COURSE_ID = 154574
+CONST_COSC101_COURSE_ID = 154564
 users = {}
 
 AuthID = namedtuple('AuthID', ['member_id', 'passkey', 'netid'])
