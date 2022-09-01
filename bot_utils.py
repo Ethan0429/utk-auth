@@ -1,6 +1,7 @@
 import bot_vars
 import json
 import numpy as np
+import discord
 from bot_vars import AuthID
 
 # check if a key already exists
@@ -74,17 +75,16 @@ async def get_auth_id(user):
 
 
 # check is user is already authenticated (has Student role)
-def is_auth(user):
+def is_auth(member: discord.Member):
     print('checking authorization status...')
-    roles = [str(role) for role in user.roles]
-    if bot_vars.auth_role in roles:
-        print(f'{user} is already authenticated!')
+    if member.get_role(1014641361921785938) != None:
+        print(f'{member} is already authenticated!')
         return True
-    print(f'{user} has not been authenticated!')
+    print(f'{member} has not been authenticated!')
     return False
 
 def generate_auth_id(member_id, netid):
-    print(f'init memberid and passkey for {netid}...')
+    print(f'init member-id and passkey for {netid}...')
     passkey = ''.join([str(number) for number in np.random.randint(10, size=6)]) # generate passkey
     auth_id = AuthID(member_id, passkey, netid)
     return auth_id

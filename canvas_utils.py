@@ -8,7 +8,6 @@ def catch_invalid_login_id(user):
 
 def catch_invalid_login_name(user):
     try:
-        
         username = str(user.name)
         first_last = username.split()
         username = first_last[0]+' '+first_last[-1]
@@ -18,6 +17,7 @@ def catch_invalid_login_name(user):
 
 def get_student_names():
     print('grabbing student names...')
-    course = bot_vars.canvas.get_course(bot_vars.CONST_COSC102_COURSE_ID)
+    course = bot_vars.canvas.get_course(bot_vars.CONST_COSC101_COURSE_ID)
     users = {catch_invalid_login_id(user): catch_invalid_login_name(user) for user in course.get_users()} 
+    print(users) # debug statement
     return users

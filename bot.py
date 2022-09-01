@@ -1,23 +1,26 @@
 #!/usr/bin/python3
 # bot.py
-from discord.ext import commands
-from discord.utils import get
 import canvas_utils
 import utk_mail
 import bot_utils
 import bot_vars
-import os
+import discord
+from discord.ext import commands
+from discord.utils import get
 
-bot = commands.Bot(command_prefix='!')
+intents = discord.Intents.default()
+intents.members = True
+intents.message_content = True
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 # add auth role to user
-async def assign_role(user):
-    print(f'assigning auth role to {str(user.name)}...')
-    if bot_utils.is_auth(user):
-        print(f'{str(user.name)} already has auth role!')
+async def assign_role(member: discord.Member):
+    print(f'assigning auth role to {str(member.name)}...')
+    if bot_utils.is_auth(member):
+        print(f'{str(member.name)} already has auth role!')
         return
-    role = get(user.guild.roles, name=bot_vars.auth_role)
-    await user.add_roles(role)
+    role = get(member.guild.roles, name=bot_vars.auth_role)
+    await member.add_roles(role)
 
 @bot.event
 async def on_ready(): 
