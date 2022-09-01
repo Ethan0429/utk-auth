@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 # bot.py
 from discord.ext import commands
+from discord import Intents
 from discord.utils import get
 import canvas_utils
 import utk_mail
@@ -8,7 +9,9 @@ import bot_utils
 import bot_vars
 import os
 
-bot = commands.Bot(command_prefix='!')
+intents = Intents.default()
+intents.members = intents.message_content = True
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 # add auth role to user
 async def assign_role(user):
