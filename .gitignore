@@ -2,3 +2,4 @@
 .connect
 members.json
 utk-auth-aws.pem
+pip*

@@ -1,27 +1,25 @@
 #!/usr/bin/python3
 # bot.py
-from discord.ext import commands
-from discord import Intents
-from discord.utils import get
 import canvas_utils
 import utk_mail
 import bot_utils
 import bot_vars
+import discord
 import os
 
-intents = Intents.default()
+intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
-bot = commands.Bot(command_prefix='!', intents=intents)
+bot = discord.commands.Bot(command_prefix='!', intents=intents)
 
 # add auth role to user
-async def assign_role(user):
-    print(f'assigning auth role to {str(user.name)}...')
-    if bot_utils.is_auth(user):
-        print(f'{str(user.name)} already has auth role!')
+async def assign_role(member: discord.Member):
+    print(f'assigning auth role to {str(member.name)}...')
+    if bot_utils.is_auth(member):
+        print(f'{str(member.name)} already has auth role!')
         return
-    role = get(user.guild.roles, name=bot_vars.auth_role)
-    await user.add_roles(role)
+    role = discord.get(member.guild.roles, name=bot_vars.auth_role)
+    await member.add_roles(role)
 
 @bot.event
 async def on_ready(): 
@@ -31,7 +29,7 @@ async def on_ready():
 
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
-async def auth(ctx: commands.Context, *, netid=None):
+async def auth(ctx: discord.commands.Context, *, netid=None):
     print('\nauthenticating...')
     member = ctx.message.author
     str_member_id = str(member.id)
@@ -54,7 +52,7 @@ async def auth(ctx: commands.Context, *, netid=None):
 
 # read passkey for valid match
 @bot.command(name='verify')
-async def verify(ctx: commands.Context, *, passkey: str):
+async def verify(ctx: discord.commands.Context, *, passkey: str):
     print('\nverifying...')
     member = ctx.message.author
     str_member_id = str(member.id)
