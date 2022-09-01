@@ -8,7 +8,6 @@ def catch_invalid_login_id(user):
 
 def catch_invalid_login_name(user):
     try:
-        
         username = str(user.name)
         first_last = username.split()
         username = first_last[0]+' '+first_last[-1]

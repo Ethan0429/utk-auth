@@ -30,7 +30,7 @@ async def on_ready():
 
 # user authentication via Discord command !auth [netid]
 @bot.command(name='auth')
-async def auth(ctx: discord.commands.Context, *, netid=None):
+async def auth(ctx: commands.Context, *, netid=None):
     print('\nauthenticating...')
     member = ctx.message.author
     str_member_id = str(member.id)
@@ -53,7 +53,7 @@ async def auth(ctx: discord.commands.Context, *, netid=None):
 
 # read passkey for valid match
 @bot.command(name='verify')
-async def verify(ctx: discord.commands.Context, *, passkey: str):
+async def verify(ctx: commands.Context, *, passkey: str):
     print('\nverifying...')
     member = ctx.message.author
     str_member_id = str(member.id)
