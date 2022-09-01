@@ -5,11 +5,13 @@ import utk_mail
 import bot_utils
 import bot_vars
 import discord
+from discord.ext import commands
+from discord.utils import get
 
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
-bot = discord.commands.Bot(command_prefix='!', intents=intents)
+bot = commands.Bot(command_prefix='!', intents=intents)
 
 # add auth role to user
 async def assign_role(member: discord.Member):
@@ -17,7 +19,7 @@ async def assign_role(member: discord.Member):
     if bot_utils.is_auth(member):
         print(f'{str(member.name)} already has auth role!')
         return
-    role = discord.get(member.guild.roles, name=bot_vars.auth_role)
+    role = get(member.guild.roles, name=bot_vars.auth_role)
     await member.add_roles(role)
 
 @bot.event
