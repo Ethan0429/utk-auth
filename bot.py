@@ -10,7 +10,8 @@ import bot_vars
 import os
 
 intents = Intents.default()
-intents.members = intents.message_content = True
+intents.members = True
+intents.message_content = True
 bot = commands.Bot(command_prefix='!', intents=intents)
 
 # add auth role to user
