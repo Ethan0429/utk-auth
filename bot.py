@@ -48,7 +48,7 @@ async def auth(ctx: commands.Context, *, netid=None):
     auth_id = bot_utils.generate_auth_id(str_member_id, str(netid))
     bot_utils.update_members(auth_id)
     await utk_mail.send_auth_email(auth_id) # send passkey email
-    response = f'{member.mention} Check your UTK email **(SPAM FOLDER)** and enter the code received into the chat.'
+    response = f'{member.mention} Check your UTK email and enter the code received into the chat.\n**Gmail:** If you\'re using Gmail, check your **spam folder**.\n**Outlook:** If you\re using Outlook, check your **quarantined** emails'
     await ctx.send(response)
 
 # read passkey for valid match
