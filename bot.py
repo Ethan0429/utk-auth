@@ -52,6 +52,7 @@ async def auth(ctx: commands.Context, *, netid=None):
     outlook_response = f'If you\'re using Outlook, check your **quarantine folder** or click this link https://security.microsoft.com/quarantine'
     embed = discord.Embed(title=f'Verification code sent!', description=f'{member.mention} Check your UTK email and enter the code received into the chat', color=0xFFCC00, type='rich').add_field(name='Gmail', value=gmail_response, inline=False).add_field(name='Outlook', value=outlook_response, inline=False)
     await ctx.send(embed=embed)
+    
 # read passkey for valid match
 @bot.command(name='verify')
 async def verify(ctx: commands.Context, *, passkey: str):
