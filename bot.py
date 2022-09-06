@@ -66,7 +66,7 @@ async def verify(ctx: commands.Context, *, passkey: str):
 
     # if passkey matches members.json, assign Student role and confirm authentication
     if passkey == auth_id['passkey']:
-        await ctx.message.channel.send(f'{member.mention} Authentication succesful!')
+        await ctx.message.channel.send(f'{member.mention} Authentication successful!')
         bot_utils.remove_member(str_member_id)
         await assign_role(member)
         await member.edit(nick=bot_vars.users[auth_id['netid']])
