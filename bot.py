@@ -48,9 +48,10 @@ async def auth(ctx: commands.Context, *, netid=None):
     auth_id = bot_utils.generate_auth_id(str_member_id, str(netid))
     bot_utils.update_members(auth_id)
     await utk_mail.send_auth_email(auth_id) # send passkey email
-    response = f'{member.mention} Check your UTK email and enter the code received into the chat.\n**Gmail:** If you\'re using Gmail, check your **spam folder**.\n**Outlook:** If you\'re using Outlook, check your **quarantined folder** or click this link https://security.microsoft.com/quarantine'
-    await ctx.send(response)
-
+    gmail_response = f'If you\'re using Gmail, check your **spam folder**'
+    outlook_response = f'If you\'re using Outlook, check your **quarantine folder** or click this link https://security.microsoft.com/quarantine'
+    embed = discord.Embed(title=f'Verification code sent!', description=f'{member.mention} Check your UTK email and enter the code received into the chat', color=0xFFCC00, type='rich').add_field(name='Gmail', value=gmail_response, inline=False).add_field(name='Outlook', value=outlook_response, inline=False)
+    await ctx.send(embed=embed)
 # read passkey for valid match
 @bot.command(name='verify')
 async def verify(ctx: commands.Context, *, passkey: str):
