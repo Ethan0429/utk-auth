@@ -1,5 +1,7 @@
 #!/usr/bin/python3
 # bot.py
+from concurrent.futures import thread
+import threading
 import canvas_utils
 import utk_mail
 import bot_utils
@@ -7,6 +9,7 @@ import bot_vars
 import discord
 from discord.ext import commands
 from discord.utils import get
+import asyncio
 
 # global vars
 intents = discord.Intents.default()
@@ -23,11 +26,23 @@ async def assign_role(member: discord.Member):
     role = get(member.guild.roles, name=bot_vars.auth_role)
     await member.add_roles(role)
 
+async def send_grading_reminder():
+    await bot.wait_until_ready()
+
+    channel = bot.get_channel(bot_vars.CONST_COSC102_GRADING_CHANNEL_ID)
+    grader_role = bot.get_guild(bot_vars.CONST_COSC102_GUILD_ID).get_role(bot_vars.CONST_COSC101_GRADER_ROLE_ID)
+    grade_embed_msg = discord.Embed(title='Grading Reminder!', description=f'{grader_role.mention} Reminder to finish up grading for last week\'s lab!', color=0xFFCC00)
+
+    while not bot.is_closed():
+        await channel.send(embed=grade_embed_msg)
+        await asyncio.sleep(604800)
+        
 @bot.event
 async def on_ready(): 
     open('members.json', 'w').close()
     bot_vars.users = canvas_utils.get_student_names()
     await bot.tree.sync(guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+    bot.bg_task = bot.loop.create_task(send_grading_reminder)
     print(f'{bot.user} is online!') 
 
 # user authentication via Discord command !auth [netid]

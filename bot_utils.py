@@ -58,7 +58,6 @@ def remove_member(user):
         json.dump(data, f, indent=2)
         print(f'{user} passkey removed from members.json!')
 
-
 # return passkey mapped to user ID from members.json
 async def get_auth_id(user):
     print(f'retrieving {user} passkey...')
@@ -72,8 +71,6 @@ async def get_auth_id(user):
     else:
         print(f'no passkey for {user} in members.json!')
     
-
-
 # check is user is already authenticated (has Student role)
 def is_auth(member: discord.Member):
     print('checking authorization status...')
