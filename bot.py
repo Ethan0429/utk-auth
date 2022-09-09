@@ -96,7 +96,6 @@ async def reset(interaction: discord.Interaction):
 async def on_ready(): 
     open('members.json', 'w').close()
     bot_vars.users = canvas_utils.get_student_names()
-    synced = True
     print("syncing...")
     await bot.tree.sync(guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
     print(f'{bot.user} is online!') 
