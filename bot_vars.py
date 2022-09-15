@@ -3,8 +3,8 @@ from canvasapi import Canvas
 from collections import namedtuple
 
 # Uncomment if using dotenv
-#from dotenv import load_dotenv
-#load_dotenv()
+from dotenv import load_dotenv
+load_dotenv()
 
 TOKEN = os.getenv('DISCORD_TOKEN')
 
