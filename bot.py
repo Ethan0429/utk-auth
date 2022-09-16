@@ -61,6 +61,7 @@ async def verify(interaction: discord.Interaction, passkey: str):
 
     # if passkey matches members.json, assign Student role and confirm authentication
     if passkey == auth_id['passkey']:
+        print(f'{str(member.name)} Authentication successful!')
         await interaction.response.send_message(f'{member.mention} Authentication successful!', ephemeral=True)
         bot_utils.remove_member(id)
         await assign_role(member)
