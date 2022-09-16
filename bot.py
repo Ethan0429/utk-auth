@@ -23,14 +23,6 @@ async def assign_role(member: discord.Member):
     role = get(member.guild.roles, name=bot_vars.auth_role)
     await member.add_roles(role)
 
-@tasks.loop(hours=24)
-async def send_grading_reminder():
-    await bot.wait_until_ready()
-    channel = bot.get_channel(bot_vars.CONST_COSC102_GRADING_CHANNEL_ID)
-    grader_role = bot.get_guild(bot_vars.CONST_COSC102_GUILD_ID).get_role(bot_vars.CONST_COSC102_GRADER_ROLE_ID)
-    grade_embed_msg = discord.Embed(title='Grading Reminder!', description=f'{grader_role.mention} Reminder to finish up grading for last week\'s lab!', color=0xFFCC00)
-    await channel.send(embed=grade_embed_msg)
-
 # user authentication via Discord command !auth [netid]
 @bot.tree.command(name='auth', description='Sends authentication email', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
 async def auth(interaction: discord.Interaction, netid: str):
@@ -99,6 +91,5 @@ async def on_ready():
     print("syncing...")
     await bot.tree.sync(guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
     print(f'{bot.user} is online!') 
-    send_grading_reminder.start()
 
 bot.run(bot_vars.TOKEN)
