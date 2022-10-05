@@ -23,7 +23,7 @@ async def assign_role(member: discord.Member):
     role = get(member.guild.roles, name=bot_vars.auth_role)
     await member.add_roles(role)
 
-# user authentication via Discord command !auth [netid]
+# user authentication via Discord command /auth [netid]
 @bot.tree.command(name='auth', description='Sends authentication email', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
 async def auth(interaction: discord.Interaction, netid: str):
     print('\nauthenticating...')
@@ -37,7 +37,7 @@ async def auth(interaction: discord.Interaction, netid: str):
         return
     if bot_utils.key_exists(id):
         print(f'{netid} already has an authid!')
-        await interaction.response.send_message(f'{member.mention} there already exists a passcode for this NetID. Type `!reset` to reset your passcode.', ephemeral=True)
+        await interaction.response.send_message(f'{member.mention} there already exists a passcode for this NetID. Type `/reset` to reset your passcode.', ephemeral=True)
         return
 
     auth_id = bot_utils.generate_auth_id(id, str(netid))
