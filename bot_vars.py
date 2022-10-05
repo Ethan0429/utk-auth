@@ -6,7 +6,7 @@ from collections import namedtuple
 # from dotenv import load_dotenv
 # load_dotenv()
 
-TOKEN = os.getenv('DISCORD_TOKEN_')
+TOKEN = os.getenv('DISCORD_TOKEN')
 
 auth_channel = 'auth'
 auth_role    = 'COSC 102'
