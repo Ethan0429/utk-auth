@@ -9,7 +9,7 @@ You must add the bot to your server and give it administrator permissions, as we
 # Usage
 The bot has 3 commands, all of which are only effective if the user does not have an auth role already. _Note: none of these command arguments include brackets_
 - `/auth [NetID]`: takes a single argument which is your UTK NetID.
-- `/verify [6-digit passcode]`: takes a single argument which is the passcode received in your UTK email from `!auth`
+- `/verify [6-digit passcode]`: takes a single argument which is the passcode received in your UTK email from `/auth`
 - `/reset`: resets your authentication status if you've mistyped your NetID.
 
 As a new user to a UTK server, simply type and enter:
