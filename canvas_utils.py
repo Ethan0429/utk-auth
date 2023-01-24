@@ -1,10 +1,12 @@
 import bot_vars
 
+
 def catch_invalid_login_id(user):
     try:
-        return str(user.login_id)      
+        return str(user.login_id)
     except AttributeError:
         pass
+
 
 def catch_invalid_login_name(user):
     try:
@@ -15,8 +17,15 @@ def catch_invalid_login_name(user):
     except AttributeError:
         pass
 
+
 def get_student_names():
     print('grabbing student names...')
     course = bot_vars.canvas.get_course(bot_vars.CONST_COSC102_COURSE_ID)
-    users = {catch_invalid_login_id(user): catch_invalid_login_name(user) for user in course.get_users()} 
+    users = {catch_invalid_login_id(user): catch_invalid_login_name(
+        user) for user in course.get_users()}
+    # pretty print the dictionary
+    print('student names:')
+    for key, value in users.items():
+        print(' ', key, ':', value)
+
     return users
