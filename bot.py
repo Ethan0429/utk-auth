@@ -112,7 +112,7 @@ async def kick_old(interaction: discord.Interaction):
             users.append(member)
 
     # send a message of all the users that will be kicked
-    await interaction.response.send_message(f'{interaction.user.mention} The following users will be kicked: {"\n".join([user.name for user in users])}', ephemeral=True)
+    await interaction.response.send_message(f'{interaction.user.mention} The following users will be kicked: {", ".join([user.name for user in users])}', ephemeral=True)
 
     # await the user to confirm the kick
     await interaction.response.send_message(f'{interaction.user.mention} Are you sure you want to kick these users? (y/n)', ephemeral=True)
