@@ -112,14 +112,14 @@ async def kick_old(interaction: discord.Interaction):
             users.append(member)
 
     users_string = '\n'.join([user.name for user in users])
+
     # send a message of all the users that will be kicked
-    await interaction.channel.send(f'{interaction.user.mention} The following users will be kicked: {users_string}', ephemeral=True)
+    await interaction.response.send_message(f'{interaction.user.mention} The following users will be kicked: {users_string}\nAre you sure you want to kick these users? (y/n)', ephemeral=True)
 
     # await the user to confirm the kick
-    await interaction.channel.send(f'{interaction.user.mention} Are you sure you want to kick these users? (y/n)', ephemeral=True)
     response = await bot.wait_for('message', check=lambda message: message.author == interaction.user)
     if response.content.lower() != 'y':
-        await interaction.channel.send(f'{interaction.user.mention} Kicking cancelled!', ephemeral=True)
+        await interaction.channel.send(content=f'{interaction.user.mention} Kicking cancelled!', delete_after=5)
         return
 
     # kick each user in the list
@@ -128,7 +128,7 @@ async def kick_old(interaction: discord.Interaction):
         print(f'{user.name} kicked!')
 
 
-@bot.event
+@ bot.event
 async def on_ready():
     open('members.json', 'w').close()
     bot_vars.users = canvas_utils.get_student_names()
