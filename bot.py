@@ -111,14 +111,15 @@ async def kick_old(interaction: discord.Interaction):
         if member.joined_at.year < 2023 and len(member.roles) == 1:
             users.append(member)
 
+    users_string = '\n'.join([user.name for user in users])
     # send a message of all the users that will be kicked
-    await interaction.response.send_message(f'{interaction.user.mention} The following users will be kicked: {", ".join([user.name for user in users])}', ephemeral=True)
+    await interaction.channel.send(f'{interaction.user.mention} The following users will be kicked: {users_string}', ephemeral=True)
 
     # await the user to confirm the kick
-    await interaction.response.send_message(f'{interaction.user.mention} Are you sure you want to kick these users? (y/n)', ephemeral=True)
+    await interaction.channel.send(f'{interaction.user.mention} Are you sure you want to kick these users? (y/n)', ephemeral=True)
     response = await bot.wait_for('message', check=lambda message: message.author == interaction.user)
     if response.content.lower() != 'y':
-        await interaction.response.send_message(f'{interaction.user.mention} Kicking cancelled!', ephemeral=True)
+        await interaction.channel.send(f'{interaction.user.mention} Kicking cancelled!', ephemeral=True)
         return
 
     # kick each user in the list
