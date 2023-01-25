@@ -24,8 +24,8 @@ def get_student_names():
     users = {catch_invalid_login_id(user): catch_invalid_login_name(
         user) for user in course.get_users()}
     # pretty print the dictionary
-    print('student names:')
-    for key, value in users.items():
-        print(' ', key, ':', value)
+    # print('student names:')
+    # for key, value in users.items():
+    #     print(' ', key, ':', value)
 
     return users
