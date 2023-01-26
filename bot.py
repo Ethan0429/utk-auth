@@ -34,6 +34,7 @@ async def auth(interaction: discord.Interaction, netid: str):
     member = interaction.user
     id = str(member.id)
     if bot_utils.is_auth(member):
+        await interaction.response.send_message(f'{member.mention} You\'re already authenticated. Nothing to see here!', ephemeral=True)
         return
     if netid is None:
         print(f'netid invalid!')
