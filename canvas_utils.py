@@ -28,9 +28,8 @@ def get_student_names():
         print('error grabbing student names')
         users = {}
 
-    # pretty print the dictionary
-    # print('student names:')
-    # for key, value in users.items():
-    #     print(' ', key, ':', value)
+    print('student names:')
+    for key, value in users.items():
+        print(key, value)
 
     return users
