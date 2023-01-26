@@ -10,6 +10,7 @@ TOKEN = os.getenv('DISCORD_TOKEN')
 
 auth_channel = 'auth'
 auth_role = 'COSC 102'
+auth_role_id = 1012369047117115453
 email_tag = '@vols.utk.edu'
 
 # Canvas API URL
