@@ -48,7 +48,7 @@ async def auth(interaction: discord.Interaction, netid: str):
     bot_utils.update_members(auth_id)
     await utk_mail.send_auth_email(auth_id)  # send passkey email
     gmail_response = f'If you\'re using Gmail, check your **spam folder**'
-    outlook_response = f'If you\'re using Outlook, check your **quarantine folder** or click this link https://security.microsoft.com/quarantine'
+    outlook_response = f'If you\'re using Outloozk, check your **quarantine folder** or click this link https://security.microsoft.com/quarantine'
     embed = discord.Embed(title=f'Verification code sent!', description=f'{member.mention} Check your UTK email\'s **spam** inbox and follow the instructions written.', color=0xFFCC00, type='rich').add_field(
         name='Gmail', value=gmail_response, inline=False).add_field(name='Outlook', value=outlook_response, inline=False)
     await interaction.response.send_message(embed=embed, ephemeral=True)
