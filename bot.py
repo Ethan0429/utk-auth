@@ -129,6 +129,18 @@ async def kick_old(interaction: discord.Interaction):
         print(f'{user.name} kicked!')
 
 
+@bot.tree.command(name='print_users', description='Prints all users', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+async def print_users(interaction: discord.Interaction):
+    # make sure the user who sent the command is an admin
+    if not interaction.user.guild_permissions.administrator:
+        await interaction.response.send_message(f'{interaction.user.mention} You do not have permission to use this command!', ephemeral=True)
+        return
+
+    print('\nprinting...')
+    users = canvas_utils.get_users()
+    print(users, '\n')
+
+
 @ bot.event
 async def on_ready():
     open('members.json', 'w').close()

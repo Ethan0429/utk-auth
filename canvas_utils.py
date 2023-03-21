@@ -12,7 +12,7 @@ def catch_invalid_login_name(user):
     try:
         username = str(user.name)
         first_last = username.split()
-        username = first_last[0]+' '+first_last[-1]
+        username = first_last[0]+' ' + first_last[-1]
         return username
     except AttributeError:
         pass
@@ -33,3 +33,7 @@ def get_student_names():
         print(key, value)
 
     return users
+
+
+def get_users():
+    return bot_vars.canvas.get_course(bot_vars.CONST_COSC102_COURSE_ID).get_users()
