@@ -87,7 +87,6 @@ class StudentDashboard:
             assignment_data = {
                 "id": assignment.id,
                 "name": assignment.name,
-                # "description": assignment.description,
                 "due_at": assignment.due_at,
                 "submission": {
                     "attempt": submission.attempt,
@@ -102,7 +101,7 @@ class StudentDashboard:
             }
             assignment_data["submission"][
                 "url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment_data['id']}"
-            assignment_data[
+            assignment_data["submission"][
                 "submission_url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment_data['id']}/submissions/{data['student_id']}"
             data["assignments"].append(assignment_data)
 
