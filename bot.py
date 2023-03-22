@@ -5,7 +5,8 @@ import utk_mail
 import bot_utils
 import bot_vars
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
+from discord import app_commands
 from discord.utils import get
 import os
 import asyncio
@@ -160,8 +161,171 @@ async def kick_old(interaction: discord.Interaction):
         print(f'{user.name} kicked!')
 
 
+async def full_names_autocomplete(
+    interaction: discord.Interaction,
+    current: str,
+) -> list[app_commands.Choice[str]]:
+
+    choices = [
+        "Evan S Abbott",
+        "Isaac Rafanan Abella",
+        "Naseem Majed Abusalim",
+        "Hailey E Aldrich",
+        "Brian Ishtey Amminger",
+        "Alexa C Andershock",
+        "Adolfo Arroyo",
+        "Jackson Austin",
+        "Owen Gabriel Bales",
+        "Joseph Barnes",
+        "Hayden Andrew Belue",
+        "Matthew Ryan Benton",
+        "Brendan Berkey",
+        "Trinity Sanaa Bissahoyo",
+        "Daniel Burnett Blackston",
+        "Isaac Shawn Blevins",
+        "Conner Bobo",
+        "Walton A Borno",
+        "Lawrence Edward Brown",
+        "Mikkayla Mariecia Byest",
+        "Tyler John Cartier",
+        "Samuel John Chugg",
+        "Danyil T Chuprynov",
+        "Chloe Elizabeth Coleman",
+        "John Cordwell",
+        "Ethan John Crall",
+        "John Connor Cross",
+        "Caleb Joseph Crunk",
+        "Caleb A Damron",
+        "Nicholas R Dawson",
+        "Tatiana Andreyevna Dehoff",
+        "Jonathon James Denton",
+        "Michael Carson Dillard",
+        "Kale L Dodson",
+        "William Peteru Douglass",
+        "Ethan Taylor Durham",
+        "Caleb Carlton Eaton",
+        "Trevor J Eisenbacher",
+        "Beatrice Talcott Eldridge",
+        "Gian Marco Fernandez-Aleman",
+        "Connor M Finley",
+        "Matthew Lee Fish",
+        "Emory Grace Fisher",
+        "Seth M Fisher",
+        "Fabiola Cruz Flores Ortega",
+        "Alexander Folster",
+        "John Paul Perlas Freeman",
+        "Cristian Frutos-Gonzalez",
+        "Alex Galindo",
+        "Jake Garland",
+        "Christoper Jett Gentry",
+        "Grayson Davis Gill",
+        "Davis Gregory Greenwell",
+        "Sally Alexis Grigsby",
+        "Ryan Michael Grychowski",
+        "Mehul Gupta",
+        "Justin Alexander Gurkin",
+        "William Shaw Hammond",
+        "Caleb Adam Hankemeier",
+        "Mckinley Scott Harmon",
+        "Andrew Craig Hart",
+        "Cayden O Hernandez",
+        "Aaron M Hess",
+        "Reid Harrison Hinthorne",
+        "Carlos Jaden Hollowell",
+        "Joseph Ezra Colin Howard",
+        "Aden T Hutcherson",
+        "Avery Im",
+        "Ethan Harrier Jones",
+        "Sarah Elizabeth Jones",
+        "Devin Eugene Justice",
+        "Ulugbek Kahramonov",
+        "Kolsten Benjamin Keene",
+        "Malik Rashawn Keys",
+        "Johnson Xuan Lam",
+        "Jackson W Lane",
+        "Zane Ethan Laughlin",
+        "Kade A Leach",
+        "Briana Ashley Leverance",
+        "David Emmanuel Long",
+        "Philip Marino",
+        "Bella Marie Matasic",
+        "William R Mather",
+        "Tyler B Matsuda",
+        "John Christian Mccallister",
+        "Brian Alexander Mcdonald",
+        "Matthew Anderson Meadows",
+        "Ashton Alan Mellquist",
+        "Madina Rustamdjan Qizi Mirusmanova",
+        "Isaac Aaron Moorman",
+        "Cinzia Nina Pacione",
+        "Tylan C Panker",
+        "Aryan T Patel",
+        "Dhruv Ashokbhai Patel",
+        "Pratham Dharmendra Patel",
+        "Shayan Saumil Patel",
+        "Dominic M Peirano",
+        "Ryan D Perry",
+        "Rylee Faith Petrole",
+        "Matthew Hoang Phan",
+        "Nishant Pokharel",
+        "Viktor E Potter",
+        "Matthew Prainito",
+        "Jackson Miller Presnell",
+        "Robert Walton Prest",
+        "Cole Alexander Price",
+        "Kenneth Ramsey",
+        "Reginald Jevon Randolph",
+        "Tyler Allen Renslow",
+        "Kyle Benjamin Richman",
+        "Holden David Roaten",
+        "Nolan David Robertson",
+        "Benjamin M Rogers",
+        "Sean Rogers",
+        "Cooper Levi Sacks",
+        "Marielle Francesca Advincula Santos",
+        "Matthew Thomas Schroeder",
+        "Thomas Gerhard Schultz",
+        "Collins L Self",
+        "Finnegan Mckellar Shea",
+        "Samuel R Shelton",
+        "Chansoo Charlie Shin",
+        "John Sievertsen",
+        "Mark Scott Sisco",
+        "Annalise Isabella Smith",
+        "Patrick Connelley Smith",
+        "Aaron Robert Sparks",
+        "Finn Carpenter Sparks",
+        "Rylan Walker Spears",
+        "Taylor Brooke Stanford",
+        "Lauryn Sydney Taylor",
+        "Emma Marie Tempco",
+        "Tevin Mekhi Tipps",
+        "Carson J Todd",
+        "Anthony Christopher Toms",
+        "Todd Casey Vanmeter",
+        "Nidya Elyssa Vargas",
+        "Sullivan Lee Varnadoe",
+        "Philip James Vickery",
+        "Ashwin Varghese Vinod",
+        "Dwight Ethan Weathers",
+        "Andrew Thomas Wells",
+        "Jason Tolliver West",
+        "TJ Williams",
+        "Riley Wilson",
+        "Jacob Richard Wolpert",
+        "Chase Tucker Wolverton",
+        "Benjamin Woody",
+        "Abigail Elizabeth Zupanci",
+    ]
+    return [
+        app_commands.Choice(name=choice, value=choice)
+        for choice in choices if current.lower() in choice.lower()
+    ]
+
+
 @bot.tree.command(name='canvas', description='Gets Canvas info for a user.', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
-async def canvas(interaction: discord.Interaction, full_name: str, assignment: str = None):
+@app_commands.autocomplete(full_names=full_names_autocomplete)
+async def canvas(interaction: discord.Interaction, full_names: str, assignment: str = None):
     # make sure the user who sent the command is an admin
     if not interaction.user.guild_permissions.administrator:
         await interaction.response.send_message(f'{interaction.user.mention} You do not have permission to use this command!', ephemeral=True)
@@ -172,7 +336,7 @@ async def canvas(interaction: discord.Interaction, full_name: str, assignment: s
 
     # Create a separate task to handle the API request and send the response when ready
     asyncio.create_task(send_async_response(
-        interaction, full_name, assignment))
+        interaction, full_names.value, assignment))
 
 
 @ bot.event
