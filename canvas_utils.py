@@ -89,13 +89,11 @@ class StudentDashboard:
                 "name": assignment.name,
                 # "description": assignment.description,
                 "due_at": assignment.due_at,
-                "submissions_download_url": assignment.submissions_download_url,
                 "submission": {
                     "attempt": submission.attempt,
                     "grade": submission.grade,
                     "score": submission.score,
                     "submitted_at": submission.submitted_at,
-                    "submission_url": submission.url,
                     "late": submission.late,
                     "missing": submission.missing,
                     "points_deducted": submission.points_deducted,
@@ -104,6 +102,8 @@ class StudentDashboard:
             }
             assignment_data["submission"][
                 "url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment_data['id']}"
+            assignment_data[
+                "submission_url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment.id}/submissions/{student.id}"
             data["assignments"].append(assignment_data)
 
         return data
@@ -202,9 +202,7 @@ def return_assignment_info(data, assignment):
 
 ## {assignment['name']}
 
-**URL**: {assignment['submission']['url']}
-
-**Submission URL**: {assignment['submission']['submission_url']}
+**Assignment URL**: {assignment['submission']['url']}
 
 **ID**: {assignment['id']}
 
@@ -212,10 +210,9 @@ def return_assignment_info(data, assignment):
 
 **Due At**: {assignment['due_at']}
 
-**Submissions Download URL**: {assignment['submissions_download_url']}
-
-
 ### Submission
+
+**Submission URL**: {assignment['submission']['submission_url']}
 
 **Attempt**: {assignment['submission']['attempt']}
 

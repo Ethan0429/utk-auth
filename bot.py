@@ -36,7 +36,7 @@ async def send_async_response(interaction, full_name, assignment):
         found_assignment = bot_utils.find_closest_assignment(data, assignment)
         bot_utils.md_to_png(f'{data["student_name"]}.png', canvas_utils.return_assignment_info(
             data, found_assignment))
-        message = f"Generated assignment info image\n\n**Links**:\nAssignment URL: {found_assignment['submission']['url']}\nSubmission ZIP: {found_assignment['submissions_download_url']}"
+        message = f"Generated assignment info image\n\n**Links**:\nAssignment URL: {found_assignment['submission']['url']}\nSubmission URL: {found_assignment['submission_url']}"
         # Attach the generated image and send it as a message.
         with open(f'{data["student_name"]}.png', 'rb') as file:
             image = discord.File(file, f'{data["student_name"]}.png')
