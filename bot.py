@@ -326,8 +326,8 @@ async def full_names_autocomplete(
 @bot.tree.command(name='canvas', description='Gets Canvas info for a user.', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
 @app_commands.autocomplete(full_names=full_names_autocomplete)
 async def canvas(interaction: discord.Interaction, full_names: str, assignment: str = None):
-    # make sure the user who sent the command is an admin
-    if not interaction.user.guild_permissions.administrator:
+    # make sure the user who sent the command is an admin or has role id 935991929978621966
+    if not interaction.user.guild_permissions.administrator or discord.utils.get(interaction.user.roles, id=bot_vars.CONST_COSC102_TA_ROLE_ID) is None:
         await interaction.response.send_message(f'{interaction.user.mention} You do not have permission to use this command!', ephemeral=True)
         return
 
