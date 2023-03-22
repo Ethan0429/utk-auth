@@ -151,11 +151,6 @@ def save_student_info_to_md(student_info, output_dir="output"):
             md_file.write(f"**Due At**: {assignment['due_at']}\n")
             md_file.write(f"\n")
             md_file.write(
-                f"**Submissions Download URL**: {assignment['submissions_download_url']}\n")
-            md_file.write(f"\n")
-            md_file.write(f"#### Submission\n")
-            md_file.write(f"\n")
-            md_file.write(
                 f"**Attempt**: {assignment['submission']['attempt']}\n")
             md_file.write(f"**Grade**: {assignment['submission']['grade']}\n")
             md_file.write(f"**Score**: {assignment['submission']['score']}\n")
