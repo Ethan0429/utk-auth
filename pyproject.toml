@@ -1,0 +1,22 @@
+[tool.poetry]
+name = "utk-auth"
+version = "0.1.0"
+description = ""
+authors = ["Ethan Rickert <ethanrickert0429@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+"discord.py" = "^2.2.2"
+canvasapi = "^3.0.0"
+numpy = "^1.24.2"
+python-dotenv = "^1.0.0"
+markdown = "^3.4.1"
+imgkit = "^1.2.3"
+
+[tool.poetry.group.dev.dependencies]
+autopep8 = "^2.0.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
