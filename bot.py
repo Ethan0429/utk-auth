@@ -7,12 +7,43 @@ import bot_vars
 import discord
 from discord.ext import commands, tasks
 from discord.utils import get
+import os
+import asyncio
 
 # global vars
 intents = discord.Intents.default()
 intents.members = True
 intents.message_content = True
 bot = commands.Bot(command_prefix='/', intents=intents)
+
+
+async def send_async_response(interaction, full_name, assignment):
+    sd = canvas_utils.StudentDashboard()
+    data = await sd.get_student_info(username=full_name)
+    canvas_utils.save_student_info_to_md(data)
+
+    if assignment is None:
+        message = canvas_utils.return_student_header(data)
+        bot_utils.md_to_png(
+            f'{data["student_name"]}.png', canvas_utils.return_student_header(data))
+        message = "Generated student info image"
+        # Attach the generated image and send it as a message.
+        with open(f'{data["student_name"]}.png', 'rb') as file:
+            image = discord.File(file, f'{data["student_name"]}.png')
+        await interaction.channel.send(message, file=image)
+    else:
+        found_assignment = bot_utils.find_closest_assignment(data, assignment)
+        bot_utils.md_to_png(f'{data["student_name"]}.png', canvas_utils.return_assignment_info(
+            data, found_assignment))
+        message = f"Generated assignment info image\n\n**Links**:\nAssignment URL: {found_assignment['submission']['url']}\nSubmission ZIP: {found_assignment['submissions_download_url']}"
+        # Attach the generated image and send it as a message.
+        with open(f'{data["student_name"]}.png', 'rb') as file:
+            image = discord.File(file, f'{data["student_name"]}.png')
+        await interaction.channel.send(message, file=image)
+
+    # Clean up generated image file
+    if os.path.exists(f'{data["student_name"]}.png'):
+        os.remove(f'{data["student_name"]}.png')
 
 # add auth role to user
 
@@ -129,16 +160,19 @@ async def kick_old(interaction: discord.Interaction):
         print(f'{user.name} kicked!')
 
 
-@bot.tree.command(name='print_users', description='Prints all users', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
-async def print_users(interaction: discord.Interaction):
+@bot.tree.command(name='canvas', description='Gets Canvas info for a user.', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+async def canvas(interaction: discord.Interaction, full_name: str, assignment: str = None):
     # make sure the user who sent the command is an admin
     if not interaction.user.guild_permissions.administrator:
         await interaction.response.send_message(f'{interaction.user.mention} You do not have permission to use this command!', ephemeral=True)
         return
 
-    print('\nprinting...')
-    users = canvas_utils.get_users()
-    print(users, '\n')
+    # Acknowledge the command immediately
+    await interaction.response.send_message(f'Processing your request, {interaction.user.mention}. Please wait...', ephemeral=True)
+
+    # Create a separate task to handle the API request and send the response when ready
+    asyncio.create_task(send_async_response(
+        interaction, full_name, assignment))
 
 
 @ bot.event
