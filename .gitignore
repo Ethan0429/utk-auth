@@ -3,5 +3,4 @@
 members.json
 utk-auth-aws.pem
 pip*
-pyproject.toml
 __pycache__/
