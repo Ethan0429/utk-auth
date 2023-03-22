@@ -336,7 +336,7 @@ async def canvas(interaction: discord.Interaction, full_names: str, assignment: 
 
     # Create a separate task to handle the API request and send the response when ready
     asyncio.create_task(send_async_response(
-        interaction, full_names.value, assignment))
+        interaction, full_names, assignment))
 
 
 @ bot.event
