@@ -4,7 +4,6 @@ import numpy as np
 import discord
 from bot_vars import AuthID
 import difflib
-from PIL import Image
 import markdown
 import imgkit
 import asyncio
