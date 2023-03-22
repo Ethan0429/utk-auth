@@ -3,6 +3,11 @@ import json
 import numpy as np
 import discord
 from bot_vars import AuthID
+import difflib
+from PIL import Image
+import markdown
+import imgkit
+import asyncio
 
 # check if a key already exists
 
@@ -97,3 +102,48 @@ def generate_auth_id(member_id, netid):
                       for number in np.random.randint(10, size=6)])
     auth_id = AuthID(member_id, passkey, netid)
     return auth_id
+
+
+def find_closest_assignment(data, user_input, n=1, cutoff=0.1):
+    user_input_lower = user_input.lower()
+    assignment_names = [(assignment, assignment["name"].lower())
+                        for assignment in data["assignments"]]
+    assignment_names_lower = [name_lower for _, name_lower in assignment_names]
+
+    close_matches = difflib.get_close_matches(
+        user_input_lower, assignment_names_lower, n=n, cutoff=cutoff)
+
+    if close_matches:
+        closest_match_lower = close_matches[0]
+        matching_assignment = [assignment for assignment,
+                               _ in assignment_names if assignment["name"].lower() == closest_match_lower][0]
+        return matching_assignment
+    else:
+        return None
+
+
+def md_to_png(filename, md_string):
+    html = markdown.markdown(md_string)
+
+    wrapped_html = f"""
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body {{
+                font-family: Arial, sans-serif;
+                max-width: 800px;
+                margin: auto;
+                padding: 2rem;
+            }}
+        </style>
+    </head>
+    <body>
+    {html}
+    </body>
+    </html>
+    """
+
+    imgkit.from_string(wrapped_html, filename)
