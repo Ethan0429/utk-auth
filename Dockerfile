@@ -1,8 +1,6 @@
 FROM python:3.10-buster
 
 
-# install requirements
-RUN pip install -r requirements.txt
 
 # install wkhtmltopdf
 RUN apt-get update && apt-get install -y \
@@ -11,6 +9,9 @@ RUN apt-get update && apt-get install -y \
 # pip install -r requirements.txt
 WORKDIR /app
 COPY . .
+
+# install requirements
+RUN pip install -r requirements.txt
 
 # run
 CMD ["python", "bot.py"]
