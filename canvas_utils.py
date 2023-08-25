@@ -24,7 +24,15 @@ def get_student_names():
     print('grabbing student names...')
     try:
         course = bot_vars.canvas.get_course(bot_vars.CONST_COSC102_COURSE_ID)
-        users = {catch_invalid_login_id(user): catch_invalid_login_name(
+        full_names = [user.name for user in course.get_users()]
+        # create student_names.txt file
+        if not os.path.exists('student_names.txt'):
+            with open('student_names.txt', 'w') as f:
+                for name in full_names:
+                    f.write(f"{name}\n")
+                    print(f"{name}")
+
+        nicknames = {catch_invalid_login_id(user): catch_invalid_login_name(
             user) for user in course.get_users()}
     except:
         print('error grabbing student names')
@@ -34,7 +42,7 @@ def get_student_names():
     for key, value in users.items():
         print(key, value)
 
-    return users
+    return full_names, nicknames
 
 
 class StudentDashboard:
