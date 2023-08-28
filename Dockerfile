@@ -11,4 +11,5 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # run
-CMD ["python", "bot.py"]
+ENTRYPOINT [ "python" ]
+CMD [ "bot.py" ]
