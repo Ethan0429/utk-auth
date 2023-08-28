@@ -34,12 +34,13 @@ def get_student_names():
 
         nicknames = {catch_invalid_login_id(user): catch_invalid_login_name(
             user) for user in course.get_users()}
-    except:
+    except Exception as e:
+        print(e)
         print('error grabbing student names')
-        users = {}
+        bot_vars.users = {}
 
     print('student names:')
-    for key, value in users.items():
+    for key, value in bot_vars.users.items():
         print(key, value)
 
     return full_names, nicknames
