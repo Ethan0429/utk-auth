@@ -195,6 +195,7 @@ async def canvas(interaction: discord.Interaction, full_names: str, assignment: 
 async def on_ready():
     open('members.json', 'w').close()
     _, bot_vars.users = canvas_utils.get_student_names()
+    print(bot_vars.users)
 
     print("syncing...")
     await bot.tree.sync(guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
