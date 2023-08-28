@@ -191,7 +191,7 @@ async def canvas(interaction: discord.Interaction, full_names: str, assignment: 
         interaction, full_names, assignment))
 
 
-@ bot.event
+@bot.event
 async def on_ready():
     open('members.json', 'w').close()
     _, bot_vars.users = canvas_utils.get_student_names()
