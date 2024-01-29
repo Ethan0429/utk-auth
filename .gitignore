@@ -5,3 +5,4 @@ utk-auth-aws.pem
 pip*
 __pycache__/
 .vscode/
+venv
