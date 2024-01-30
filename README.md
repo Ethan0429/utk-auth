@@ -62,8 +62,8 @@ The project is structured relatively neatly so that each module has its own job(
 ## Setup
 
 ```python3
-DISCORD_TOKEN           = os.getenv('DISCORD_DISCORD_TOKEN') # Discord app key for interfacing with their API
-CANVAS_API_KEY         = os.getenv('CANVAS_KEY')    # Canvas app key for interfacing with their API
+DISCORD_TOKEN   = os.getenv('DISCORD_TOKEN') # Discord app key for interfacing with their API
+CANVAS_API_KEY  = os.getenv('CANVAS_KEY')    # Canvas app key for interfacing with their API
 CONST_COURSE_ID = os.getnenv(COURSE_ID)      # Canvas course ID for any particular course. Used to reference student names
 ```
 
