@@ -6,7 +6,6 @@ from bot_vars import AuthID
 import difflib
 import markdown
 import imgkit
-import asyncio
 
 # check if a key already exists
 
