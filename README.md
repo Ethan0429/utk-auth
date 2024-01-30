@@ -62,13 +62,13 @@ The project is structured relatively neatly so that each module has its own job(
 ## Setup
 
 ```python3
-TOKEN           = os.getenv('DISCORD_TOKEN') # Discord app key for interfacing with their API
-API_KEY         = os.getenv('CANVAS_KEY')    # Canvas app key for interfacing with their API
+DISCORD_TOKEN           = os.getenv('DISCORD_DISCORD_TOKEN') # Discord app key for interfacing with their API
+CANVAS_API_KEY         = os.getenv('CANVAS_KEY')    # Canvas app key for interfacing with their API
 CONST_COURSE_ID = os.getnenv(COURSE_ID)      # Canvas course ID for any particular course. Used to reference student names
 ```
 
-- `TOKEN` refers to the Discord bot's generated token, which should be unchanging. No config necessary.
-- `API_KEY` refers to the Canvas generated API Key. The API key must have access to the student list for a Canvas course in order for the bot to function, otherwise no users will be returned. The API key is handled through the [Railway](https://railway.app) deployment's environment variables. The API key should belong to either a TA or course instructor. You can learn how to generate an API key [here](https://community.canvaslms.com/t5/Student-Guide/How-do-I-manage-API-access-tokens-as-a-student/ta-p/273).
+- `DISCORD_TOKEN` refers to the Discord bot's generated token, which should be unchanging. No config necessary.
+- `CANVAS_API_KEY` refers to the Canvas generated API Key. The API key must have access to the student list for a Canvas course in order for the bot to function, otherwise no users will be returned. The API key is handled through the [Railway](https://railway.app) deployment's environment variables. The API key should belong to either a TA or course instructor. You can learn how to generate an API key [here](https://community.canvaslms.com/t5/Student-Guide/How-do-I-manage-API-access-tokens-as-a-student/ta-p/273).
 - `COURSE_ID` refers to the course ID specific to the Canvas course. This likely changes every semester and can be found in the Canvas course page's URL. (e.g. `https://utk.instructure.com/courses/190229/`, where `190229` is the ID) This is handled through the Railways deployment's environment variables.
 
 and
