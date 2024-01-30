@@ -9,7 +9,7 @@ EMAIL_TAG = "@vols.utk.edu"
 AUTH_ROLE = os.getenv("AUTH_ROLE")
 AUTH_ROLE_ID = os.getenv("AUTH_ROLE_ID")
 GUILD_ID = os.getenv("GUILD_ID")
-TA_ROLE_ID = os.getenv("TA_ROLE_ID")
+# TA_ROLE_ID = os.getenv("TA_ROLE_ID")
 CANVAS_COURSE_URL_ID = os.getenv("CANVAS_COURSE_URL_ID")
 
 AuthID = namedtuple("AuthID", ["member_id", "passkey", "netid"])

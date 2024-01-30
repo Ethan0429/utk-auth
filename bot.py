@@ -245,7 +245,7 @@ async def canvas(
     # make sure the user who sent the command is an admin or has role id 935991929978621966
     if (
         not interaction.user.guild_permissions.administrator
-        or discord.utils.get(interaction.user.roles, id=bot_vars.TA_ROLE_ID) is None
+        # or discord.utils.get(interaction.user.roles, id=bot_vars.TA_ROLE_ID) is None
     ):
         await interaction.response.send_message(
             f"{interaction.user.mention} You do not have permission to use this command!",
