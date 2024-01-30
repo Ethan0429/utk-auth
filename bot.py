@@ -54,13 +54,13 @@ async def assign_role(member: discord.Member):
     if bot_utils.is_auth(member):
         print(f'{str(member.name)} already has auth role!')
         return
-    role = get(member.guild.roles, name=bot_vars.auth_role)
+    role = get(member.guild.roles, name=bot_vars.AUTH_ROLE)
     await member.add_roles(role)
 
 # user authentication via Discord command /auth [netid]
 
 
-@bot.tree.command(name='auth', description='Sends authentication email', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+@bot.tree.command(name='auth', description='Sends authentication email', guild=discord.Object(id=bot_vars.GUILD_ID))
 async def auth(interaction: discord.Interaction, netid: str):
     print('\nauthenticating...')
     member = interaction.user
@@ -89,7 +89,7 @@ async def auth(interaction: discord.Interaction, netid: str):
 # read passkey for valid match
 
 
-@bot.tree.command(name='verify', description='Verifies pin from auth email', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+@bot.tree.command(name='verify', description='Verifies pin from auth email', guild=discord.Object(id=bot_vars.GUILD_ID))
 async def verify(interaction: discord.Interaction, passkey: str):
     print('\nverifying...')
     member = interaction.user
@@ -111,7 +111,7 @@ async def verify(interaction: discord.Interaction, passkey: str):
 # resets passkey if it already exists in members.json
 
 
-@bot.tree.command(name='reset', description='Resets verification pin', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+@bot.tree.command(name='reset', description='Resets verification pin', guild=discord.Object(id=bot_vars.GUILD_ID))
 async def reset(interaction: discord.Interaction):
     member = interaction.user
     id = str(member.id)
@@ -130,7 +130,7 @@ async def reset(interaction: discord.Interaction):
 # create a command that iterates through each member in the server and checks the date they joined, then kicks them if they are too old
 
 
-@bot.tree.command(name='kick_old', description='Kicks old users', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID), )
+@bot.tree.command(name='kick_old', description='Kicks old users', guild=discord.Object(id=bot_vars.GUILD_ID), )
 async def kick_old(interaction: discord.Interaction):
     # make sure the user who sent the command is an admin
     if not interaction.user.guild_permissions.administrator:
@@ -175,11 +175,11 @@ async def full_names_autocomplete(
     ]
 
 
-@bot.tree.command(name='canvas', description='Gets Canvas info for a user.', guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+@bot.tree.command(name='canvas', description='Gets Canvas info for a user.', guild=discord.Object(id=bot_vars.GUILD_ID))
 @app_commands.autocomplete(full_names=full_names_autocomplete)
 async def canvas(interaction: discord.Interaction, full_names: str, assignment: str = None):
     # make sure the user who sent the command is an admin or has role id 935991929978621966
-    if not interaction.user.guild_permissions.administrator or discord.utils.get(interaction.user.roles, id=bot_vars.CONST_COSC102_TA_ROLE_ID) is None:
+    if not interaction.user.guild_permissions.administrator or discord.utils.get(interaction.user.roles, id=bot_vars.TA_ROLE_ID) is None:
         await interaction.response.send_message(f'{interaction.user.mention} You do not have permission to use this command!', ephemeral=True)
         return
 
@@ -197,7 +197,7 @@ async def on_ready():
     _, bot_vars.users = canvas_utils.get_student_names()
 
     print("syncing...")
-    await bot.tree.sync(guild=discord.Object(id=bot_vars.CONST_COSC102_GUILD_ID))
+    await bot.tree.sync(guild=discord.Object(id=bot_vars.GUILD_ID))
     print(f'{bot.user} is online!')
 
-bot.run(bot_vars.TOKEN)
+bot.run(bot_vars.DISCORD_TOKEN)

@@ -23,7 +23,7 @@ def catch_invalid_login_name(user):
 def get_student_names():
     print('grabbing student names...')
     try:
-        course = bot_vars.canvas.get_course(bot_vars.CONST_COSC102_COURSE_ID)
+        course = bot_vars.canvas.get_course(bot_vars.CANVAS_COURSE_URL_ID)
         full_names = [user.name for user in course.get_users()]
         # create student_names.txt file
         if not os.path.exists('student_names.txt'):
@@ -49,7 +49,7 @@ def get_student_names():
 class StudentDashboard:
     def __init__(self):
         self.canvas = bot_vars.canvas
-        self.course_id = bot_vars.CONST_COSC102_COURSE_ID
+        self.course_id = bot_vars.CANVAS_COURSE_URL_ID
         self.course = self.canvas.get_course(self.course_id)
 
     def get_user(self, username):
@@ -109,9 +109,9 @@ class StudentDashboard:
                 },
             }
             assignment_data["submission"][
-                "url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment_data['id']}"
+                "url"] = f"https://utk.instructure.com/courses/{bot_vars.CANVAS_COURSE_URL_ID}/assignments/{assignment_data['id']}"
             assignment_data["submission"][
-                "submission_url"] = f"https://utk.instructure.com/courses/{bot_vars.CONST_COSC102_COURSE_ID}/assignments/{assignment_data['id']}/submissions/{data['student_id']}"
+                "submission_url"] = f"https://utk.instructure.com/courses/{bot_vars.CANVAS_COURSE_URL_ID}/assignments/{assignment_data['id']}/submissions/{data['student_id']}"
             data["assignments"].append(assignment_data)
 
         return data

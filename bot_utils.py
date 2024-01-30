@@ -87,7 +87,7 @@ async def get_auth_id(user):
 
 def is_auth(member: discord.Member):
     print('checking authorization status...')
-    if member.get_role(bot_vars.auth_role_id) != None:
+    if member.get_role(bot_vars.AUTH_ROLE_ID) != None:
         print(f'{member} is already authenticated!')
         return True
     print(f'{member} has not been authenticated!')

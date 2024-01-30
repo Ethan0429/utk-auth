@@ -19,6 +19,6 @@ async def send_auth_email(user):
     print('email login...')
     s.login(BOT_EMAIL, BOT_PASS)
     msg = f'Hello {bot_vars.users[user.netid]},\n\nEnter the following line (DO NOT COPY PASTE) into the #auth channel:\n\n/verify {user.passkey}\n\n-Sincerely, UTK Auth Bot'
-    s.sendmail(BOT_EMAIL, user.netid+bot_vars.email_tag, msg)
+    s.sendmail(BOT_EMAIL, user.netid+bot_vars.EMAIL_TAG, msg)
     print(f'email sent to {user.netid}!')
     s.quit()
